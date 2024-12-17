@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>統合された Texas Hold'em アプリ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- トップセクション（タイマーとストラクチャー） -->
+  <div class="right-section">
+    <div class="right-top">
+      <div class="container">
+        <!-- 左側にタイマー -->
+        <div class="left-time">
+          <div class="time-info">
+            <p id="remaining-time">00:30</p>
+          </div>
+        </div>
+  
+        <!-- 右側に現在のストラクチャーと次のストラクチャー -->
+        <div class="right-time">
+          <div class="level-info" id="current-level">
+            <h2>現在のストラクチャー</h2>
+            <p>100/200</p>
+          </div>
+          <div class="level-info" id="next-level">
+            <h2>次のストラクチャー</h2>
+            <p>200/400</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-bottom">
+      <div class="table" id="playerHands"></div>
+      <div class="table" id="communityCards"></div>
+      <div class="controls">
+        <button class="button" id="dealButton">Deal Cards</button>
+        <button class="button" id="nextPhaseButton">Next Phase</button>
+        <button class="button" id="resetButton">Reset</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="left-section">
+    <!-- ボトムセクション（ラウンド情報とプレイヤー） -->
+    <div class="container">
+      <div id="round-info">
+        <h2><span id="round-name">Pre-Flop</span></h2>
+      </div>
+      <div id="players">
+        <!-- プレイヤー情報がここに動的に追加されます -->
+      </div>
+      <div id="pot">
+        <h2>Current Pot: <span id="pot-amount">0</span> Chips</h2>
+      </div>
+      <div id="bet-controls">
+        <h3 id="current-turn">Current Turn: SB</h3>
+        <input type="number" id="bet-input" placeholder="Enter your bet">
+        <button id="place-bet">Place Bet</button>
+      </div>
+      <button id="next-round">Next Round</button>
+    </div>
+  </div>
+  
+    
+
+  <script src="structure_script.js"></script>
+  <script src="bet_script.js"></script>
+  <script src="card.js"></script>
+</body>
+</html>
