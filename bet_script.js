@@ -1,14 +1,63 @@
 // プレイヤーのデータを管理
-const players = [
-    { id: 1, name: "Player 1", stack: 1000, position: "BTN", bet: 0 },
-    { id: 2, name: "Player 2", stack: 1000, position: "BB", bet: 0 },
-];
 
+let players = [];
 let currentPot = 0;
 let currentTurnIndex = 1; // 初期ターンはSB（インデックス1）
 let currentRoundIndex = 0; // ラウンドのインデックス
 const roundNames = ["Pre-Flop", "Flop", "Turn", "River"];
 
+// 起動時にプレイヤー人数を入力させる
+function initializePlayers() {
+    let playerCount;
+    do {
+        playerCount = parseInt(prompt("Enter the number of players (2-6):"), 10);
+    } while (isNaN(playerCount) || playerCount < 2 || playerCount > 6);
+
+    players = Array.from({ length: playerCount }, (_, i) => ({
+        id: i + 1,
+        name: `Player ${i + 1}`,
+        stack: 1000,
+        position: "",
+        bet: 0,
+    }));
+    alert(players)
+
+    // Set positions dynamically
+    if (playerCount >= 2) {
+        players[0].position = "BTN";
+        players[1].position = "BB";
+    }
+    if (playerCount >= 3) {
+        players[0].position = "BTN";
+        players[1].position = "SB";
+        players[2].position = "BB";
+    }
+    if (playerCount >= 4) {
+        players[0].position = "BTN";
+        players[1].position = "SB";
+        players[2].position = "BB";
+        players[3].position = "UTG";
+    }
+    if (playerCount >= 5) {
+        players[0].position = "BTN";
+        players[1].position = "SB";
+        players[2].position = "BB";
+        players[3].position = "UTG";
+        players[4].position = "HJ";
+    }
+    if (playerCount >= 6) {
+        players[0].position = "BTN";
+        players[1].position = "SB";
+        players[2].position = "BB";
+        players[3].position = "UTG";
+        players[4].position = "HJ";
+        players[5].position = "CO";
+    }
+
+    renderPlayers();
+    updateRoundInfo();
+    updateTurnDisplay();
+}
 // ラウンド情報の更新
 function updateRoundInfo() {
     const roundNameDisplay = document.getElementById("round-name");
@@ -281,3 +330,5 @@ function updateTurnDisplay() {
     document.getElementById("current-turn").textContent = `${currentPlayer.name}'s turn (${currentPlayer.position})`;
 }
 
+// 初期化
+initializePlayers();

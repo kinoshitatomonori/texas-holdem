@@ -4,6 +4,7 @@ let deck = [];
 let playerHands = [];
 let communityCards = [];
 let phase = 0; // 0: Pre-flop, 1: Flop, 2: Turn, 3: River
+let inputPlayers = 0;
 
 const playerHandsDiv = document.getElementById('playerHands');
 const communityCardsDiv = document.getElementById('communityCards');
@@ -63,12 +64,12 @@ function initializeDeck() {
 //  }
 //}
 
-function dealCards(numPlayers) {
+function dealCards(inputPlayers) {
   initializeDeck();
   playerHands = [];
   communityCards = [];
   phase = 0;
-  for (let i = 0; i < numPlayers; i++) {
+  for (let i = 0; i < inputPlayers; i++) {
     playerHands.push([deck.pop(), deck.pop()]);
   }
 }
@@ -126,6 +127,19 @@ function renderCommunityCards() {
   });
 }
 
+function InitializePlayers() {
+  const numPlayers = parseInt(prompt('Enter number of players (2-10):'));
+  if (numPlayers >= 2 && numPlayers <= 10) {
+    inputPlayers = numPlayers
+    dealCards(numPlayers);
+    renderPlayerHands();
+    renderCommunityCards();
+    nextPhaseButton.disabled = false;
+  } else {
+    alert('Please enter a valid number of players (2-10).');
+  }
+}
+
 function revealNextPhase() {
   if (phase === 0) {
     // Flop
@@ -145,9 +159,9 @@ function revealNextPhase() {
 }
 
 document.getElementById('dealButton').addEventListener('click', () => {
-  const numPlayers = parseInt(prompt('Enter number of players (2-10):', '2'));
-  if (numPlayers >= 2 && numPlayers <= 10) {
-    dealCards(numPlayers);
+  //const numPlayers = parseInt(prompt('Enter number of players (2-10):', '2'));
+  if (inputPlayers >= 2 && inputPlayers <= 10) {
+    dealCards(inputPlayers);
     renderPlayerHands();
     renderCommunityCards();
     nextPhaseButton.disabled = false;
@@ -166,3 +180,5 @@ document.getElementById('resetButton').addEventListener('click', () => {
   communityCardsDiv.innerHTML = '';
   nextPhaseButton.disabled = true;
 });
+
+InitializePlayers();
